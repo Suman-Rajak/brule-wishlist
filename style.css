@@ -42,7 +42,7 @@ img { display: block; max-width: 100%; }
 .hero__bg {
   position: absolute;
   inset: 0;
-  background: #6d7169 url("background.png") center / cover no-repeat;
+  background: #6d7169 url("background.webp") center / cover no-repeat;
   transform: scale(1.02);
 }
 
