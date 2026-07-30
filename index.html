@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Brulé — Join the Waitlist</title>
+<meta name="description" content="Brulé is coming. Join the waitlist for early access and a chance to win one of our launch gifts." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============ HERO / FORM ============ -->
+<section class="hero">
+  <div class="hero__bg" role="img" aria-label="A moka pot steaming on a wooden stool overlooking rolling green hills"></div>
+  <div class="hero__scrim"></div>
+
+  <div class="hero__inner">
+    <header class="brand">
+      <span class="brand__mark">Brulé</span>
+      <span class="brand__rule"></span>
+      <span class="brand__tag">Coffee, slowly</span>
+    </header>
+
+    <div class="panel">
+      <p class="panel__eyebrow">Launching soon</p>
+      <h1 class="panel__title">Be first to<br />the first cup.</h1>
+      <p class="panel__lede">
+        Join the Brulé waitlist for early access — and a chance to win one of our
+        launch gifts. Everyone who joins gets 10% off their first order.
+      </p>
+
+      <form id="waitlistForm" novalidate>
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" autocomplete="name" placeholder="Your full name" />
+          <span class="err" id="nameErr" role="alert"></span>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" />
+          <span class="err" id="emailErr" role="alert"></span>
+        </div>
+
+        <div class="field">
+          <label for="phone">Mobile <span class="opt">— optional</span></label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="numeric" placeholder="10-digit number" />
+          <span class="err" id="phoneErr" role="alert"></span>
+        </div>
+
+        <button type="submit" id="submitBtn">
+          <span class="btn__label">Join the waitlist</span>
+        </button>
+
+        <p class="fineprint">No spam. One email when we launch, and nothing else.</p>
+      </form>
+
+      <div id="successMsg" class="success" hidden>
+        <div class="success__mark" aria-hidden="true">☕</div>
+        <h2>You're on the list.</h2>
+        <p id="successText"></p>
+        <p class="fineprint">Winners are drawn at launch and notified by email.</p>
+      </div>
+    </div>
+
+    <a class="scroll-cue" href="#gifts">
+      <span>See the gifts</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <path d="M12 5v14M5 12l7 7 7-7" />
+      </svg>
+    </a>
+  </div>
+</section>
+
+<!-- ============ GIFTS ============ -->
+<section class="gifts" id="gifts">
+  <div class="gifts__head">
+    <p class="section-eyebrow">The launch draw</p>
+    <h2 class="section-title">Being early has its rewards</h2>
+    <p class="section-lede">
+      Sixty-one gifts, one waitlist. Join and you're entered automatically —
+      winners drawn the morning we open.
+    </p>
+  </div>
+
+  <div class="gifts__grid">
+
+    <article class="gift gift--feature">
+      <div class="gift__media">
+        <!-- Replace src with your image. Recommended: 1600×1200 (4:3) -->
+        <img src="gifts/brule-year.png" alt="The Brulé Year gift set — calendar, T-shirt and ceramic mug" loading="lazy" />
+      </div>
+      <div class="gift__body">
+        <p class="gift__count"><span>The grand prize</span><span class="gift__odds">1 winner</span></p>
+        <h3 class="gift__name">The Brulé Year</h3>
+        <p class="gift__desc">
+          Twelve months of Brulé, handed over in one box. The customised calendar,
+          the signature tee, and the ceramic mug that started all of this.
+        </p>
+        <ul class="gift__items">
+          <li>Customised Brulé calendar</li>
+          <li>Brulé T-shirt</li>
+          <li>Brulé ceramic coffee mug</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="gift">
+      <div class="gift__media">
+        <!-- Recommended: 1200×1200 (1:1) -->
+        <img src="gifts/glass-bottle.png" alt="Brulé glass bottle with straw and leather sleeve" loading="lazy" />
+      </div>
+      <div class="gift__body">
+        <p class="gift__count"><span>For the road</span><span class="gift__odds">10 winners</span></p>
+        <h3 class="gift__name">The Glass Bottle</h3>
+        <p class="gift__desc">
+          Glass, straw, leather-wrapped sleeve. Made for the coffee that
+          refuses to stay at the table.
+        </p>
+      </div>
+    </article>
+
+    <article class="gift">
+      <div class="gift__media">
+        <!-- Recommended: 1200×1200 (1:1) -->
+        <img src="gifts/dolce-vita-kit.png" alt="Dolce Vita Kit — Brulé keychain and mascot postcard set" loading="lazy" />
+      </div>
+      <div class="gift__body">
+        <p class="gift__count"><span>For the desk</span><span class="gift__odds">50 winners</span></p>
+        <h3 class="gift__name">Dolce Vita Kit</h3>
+        <p class="gift__desc">
+          A Brulé keychain and the full mascot postcard set — a small Italian
+          daydream for the corner of your desk.
+        </p>
+      </div>
+    </article>
+
+    <article class="gift gift--everyone">
+      <div class="gift__media gift__media--type" aria-hidden="true">
+        <span class="gift__figure">10%</span>
+        <span class="gift__figure-note">off your first order</span>
+      </div>
+      <div class="gift__body">
+        <p class="gift__count"><span>No luck required</span><span class="gift__odds">Everyone</span></p>
+        <h3 class="gift__name">The welcome gift</h3>
+        <p class="gift__desc">
+          Every single person on the waitlist gets it — winner or not. It lands
+          in your inbox the moment we open the doors.
+        </p>
+        <a class="gift__cta" href="#waitlistForm">Join the waitlist</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq" id="faq">
+  <div class="faq__head">
+    <p class="section-eyebrow">Good to know</p>
+    <h2 class="section-title">Questions, answered</h2>
+  </div>
+
+  <div class="faq__list">
+
+    <div class="faq__item">
+      <button class="faq__q" aria-expanded="false">
+        <span>When does Brulé launch?</span>
+        <span class="faq__icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq__a">
+        <p>We're finalising things now. Everyone on the waitlist gets first word, by email, the moment we open.</p>
+      </div>
+    </div>
+
+    <div class="faq__item">
+      <button class="faq__q" aria-expanded="false">
+        <span>How do I join the waitlist?</span>
+        <span class="faq__icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq__a">
+        <p>Fill in the form above with your name and email — mobile number is optional. You'll get a confirmation email right away.</p>
+      </div>
+    </div>
+
+    <div class="faq__item">
+      <button class="faq__q" aria-expanded="false">
+        <span>How does the giveaway work?</span>
+        <span class="faq__icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq__a">
+        <p>Everyone who joins the waitlist is automatically entered — no extra steps. Winners are drawn at launch: 1 person wins The Brulé Year, 10 win the Brulé glass bottle, and 50 win the Dolce Vita Kit.</p>
+      </div>
+    </div>
+
+    <div class="faq__item">
+      <button class="faq__q" aria-expanded="false">
+        <span>Do I need to do anything to win?</span>
+        <span class="faq__icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq__a">
+        <p>No. Joining the waitlist is your entry. If you win, we'll email you directly at the address you signed up with.</p>
+      </div>
+    </div>
+
+    <div class="faq__item">
+      <button class="faq__q" aria-expanded="false">
+        <span>What's the welcome gift?</span>
+        <span class="faq__icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq__a">
+        <p>10% off your first order, sent to every single person on the waitlist — whether or not you win one of the giveaway prizes.</p>
+      </div>
+    </div>
+
+    <div class="faq__item">
+      <button class="faq__q" aria-expanded="false">
+        <span>Is my mobile number required?</span>
+        <span class="faq__icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq__a">
+        <p>No, it's optional. We only need your email to keep you updated and to notify you if you win.</p>
+      </div>
+    </div>
+
+    <div class="faq__item">
+      <button class="faq__q" aria-expanded="false">
+        <span>Will you spam me?</span>
+        <span class="faq__icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq__a">
+        <p>No. You'll get a confirmation now, and one email when we launch — that's it, unless you're a winner.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <span class="footer__mark">Brulé</span>
+  <span class="footer__copy">© 2026 Brulé Coffee. All rights reserved.</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
