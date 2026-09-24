@@ -30,7 +30,7 @@ before(async () => {
   let output = '';
   child = spawn(process.execPath, ['server/index.js', '--demo'], {
     cwd: root,
-    env: { ...process.env, PORT: String(port), DATA_DIR: dataDir, ANTHROPIC_API_KEY: '' },
+    env: { ...process.env, PORT: String(port), DATA_DIR: dataDir, ANTHROPIC_API_KEY: '', OPEN_BROWSER: '0' },
     stdio: ['ignore', 'pipe', 'pipe'],
   });
   child.stdout.on('data', (d) => (output += d));
@@ -46,9 +46,14 @@ before(async () => {
   }
   throw new Error(`server did not start:\n${output}`);
 });
-after(() => {
-  child.kill();
-  fs.rmSync(dataDir, { recursive: true, force: true });
+after(async () => {
+  // Wait for the server to finish saving and exit before removing its data folder.
+  if (child.exitCode === null) {
+    const exited = new Promise((resolve) => child.once('exit', resolve));
+    child.kill();
+    await exited;
+  }
+  fs.rmSync(dataDir, { recursive: true, force: true, maxRetries: 3 });
 });
 
 const post = (p, body, headers = { 'X-Call-Desk': '1' }) =>

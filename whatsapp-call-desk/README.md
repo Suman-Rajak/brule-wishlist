@@ -31,23 +31,21 @@ Link WhatsApp by scanning a QR code. Call Desk reads your recent chats, includin
 
 ## Set up (one time, about 5 minutes)
 
-1. **Install Node.js** 20 or newer from [nodejs.org](https://nodejs.org). The LTS version is fine.
-2. **Open a terminal in this folder** (`whatsapp-call-desk`) and run:
-   ```bash
-   npm install
-   ```
-   This also downloads a private copy of Chrome (about 150 MB). Call Desk uses it to run WhatsApp Web in the background.
-3. **Start it:**
-   ```bash
-   npm start
-   ```
-   Then open **http://localhost:3000** in your browser.
+1. **Install Node.js** from [nodejs.org](https://nodejs.org). Pick the LTS version and click through the installer.
+2. **Get the code.** Download this repository as a ZIP from GitHub (green **Code** button → **Download ZIP**) and unzip it.
+3. **Start it.** Open the `whatsapp-call-desk` folder and double-click:
+   - **Windows:** `Start Call Desk.bat`
+   - **Mac:** `Start Call Desk.command`. The first time, macOS may say it's from an unidentified developer. If so, right-click the file, choose **Open**, then **Open** again.
+
+   The first start installs everything, including a private copy of Chrome that Call Desk uses to run WhatsApp Web in the background. That's about 200 MB and happens only once. Then your browser opens the dashboard at **http://localhost:3000**. Keep the black window open while you use it; closing it stops Call Desk.
 4. **Scan the QR code.** On your phone, open WhatsApp and go to **Settings** (iPhone) or the **⋮ menu** (Android). Tap **Linked devices**, then **Link a device**.
 
    ![Connect screen](docs/connect.jpg)
 5. **Turn on the AI.** Click **Turn on AI** (or ⚙ Settings) and paste your Claude API key. You can create one at [console.anthropic.com](https://console.anthropic.com/settings/keys). You can also put it in a `.env` file instead (copy `.env.example`).
 
-After that, just run `npm start` whenever you want your list. You stay logged in. On the first sync Call Desk reads your most recent 150 chats, which takes a minute or two. Claude then reads them one by one, and the list fills in as it goes.
+After that, just double-click the start file whenever you want your list. You stay logged in. On the first sync Call Desk reads your most recent 150 chats, which takes a minute or two. Claude then reads them one by one, and the list fills in as it goes.
+
+**Prefer the terminal?** In the `whatsapp-call-desk` folder, run `npm install` once, then `npm start` each time.
 
 **Want to look around first?** Run `npm run demo` to open the dashboard with 30 made-up sample chats. WhatsApp isn't started in this mode.
 

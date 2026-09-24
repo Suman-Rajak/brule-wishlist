@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { spawn } from 'node:child_process';
 import { createRequire } from 'node:module';
 import express from 'express';
 import QRCode from 'qrcode';
@@ -370,6 +371,20 @@ app.use((err, req, res, next) => {
 
 // ---------- Start ----------
 
+// Open the dashboard in the default browser (set OPEN_BROWSER=0 to skip).
+function openBrowser(url) {
+  if (process.env.OPEN_BROWSER === '0') return;
+  const [cmd, args] =
+    process.platform === 'darwin' ? ['open', [url]] : process.platform === 'win32' ? ['explorer', [url]] : ['xdg-open', [url]];
+  try {
+    const child = spawn(cmd, args, { stdio: 'ignore', detached: true, windowsHide: true });
+    child.on('error', () => {}); // no browser here — the link is printed in the terminal
+    child.unref();
+  } catch {
+    // same as above
+  }
+}
+
 app.listen(PORT, HOST, (err) => {
   if (err) {
     console.error(err.code === 'EADDRINUSE' ? `Port ${PORT} is already in use. Is Call Desk already running? Or set PORT=3001 in .env.` : err);
@@ -383,6 +398,7 @@ app.listen(PORT, HOST, (err) => {
     console.log('  Starting WhatsApp… open the link above to scan the QR code.\n');
     wa.start().catch((e) => console.error('[whatsapp]', e));
   }
+  openBrowser(`http://localhost:${PORT}`);
 });
 
 async function shutdown() {
