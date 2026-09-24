@@ -8,7 +8,7 @@ const pick = (s) => ({
   ownerName: s.ownerName,
   model: s.model,
   autoAnalyze: s.autoAnalyze,
-  seenAfterHours: s.seenAfterHours,
+  seenAfterDays: s.seenAfterDays,
   staleAfterDays: s.staleAfterDays,
   maxChats: s.maxChats,
   messagesPerChat: s.messagesPerChat,
@@ -20,7 +20,7 @@ const pick = (s) => ({
 function NumberSelect({ id, value, options, onChange, suffix }) {
   const list = options.includes(value) ? options : [...options, value].sort((a, b) => a - b);
   return html`<select id=${id} value=${value} onChange=${(e) => onChange(Number(e.currentTarget.value))}>
-    ${list.map((n) => html`<option key=${n} value=${n}>${n} ${suffix}</option>`)}
+    ${list.map((n) => html`<option key=${n} value=${n}>${n} ${n === 1 ? suffix.replace(/s$/, '') : suffix}</option>`)}
   </select>`;
 }
 
@@ -105,8 +105,8 @@ export function SettingsModal({ server, actions, focus, onClose }) {
       <div class="grid-2">
         <div class="field">
           <label for="seen">“Left on seen” after</label>
-          <${NumberSelect} id="seen" value=${form.seenAfterHours} options=${[1, 2, 4, 8, 12, 24, 48]} suffix="hours" onChange=${set('seenAfterHours')} />
-          <small>How long after they read your message before it counts.</small>
+          <${NumberSelect} id="seen" value=${form.seenAfterDays} options=${[1, 2, 3, 4, 5, 7]} suffix="days" onChange=${set('seenAfterDays')} />
+          <small>How long they can sit on your message (read, no reply) before they go to Call first.</small>
         </div>
         <div class="field">
           <label for="stale">Gone cold after</label>

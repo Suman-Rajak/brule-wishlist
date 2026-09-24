@@ -34,7 +34,7 @@ export const DEFAULT_SETTINGS = {
   anthropicApiKey: '',
   model: MODELS[0].id,
   autoAnalyze: true,
-  seenAfterHours: 4,
+  seenAfterDays: 3,
   staleAfterDays: 45,
   maxChats: 150,
   messagesPerChat: 40,

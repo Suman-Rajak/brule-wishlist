@@ -3,31 +3,48 @@ import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import http from 'node:http';
+import net from 'node:net';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const port = 3900 + Math.floor(Math.random() * 90);
-const base = `http://127.0.0.1:${port}`;
 const dataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'calldesk-test-'));
+let port;
+let base;
 let child;
 
+// Ask the OS for a free port so parallel test runs never collide.
+const freePort = () =>
+  new Promise((resolve, reject) => {
+    const probe = net.createServer().once('error', reject);
+    probe.listen(0, '127.0.0.1', () => {
+      const { port: p } = probe.address();
+      probe.close(() => resolve(p));
+    });
+  });
+
 before(async () => {
+  port = await freePort();
+  base = `http://127.0.0.1:${port}`;
+  let output = '';
   child = spawn(process.execPath, ['server/index.js', '--demo'], {
     cwd: root,
     env: { ...process.env, PORT: String(port), DATA_DIR: dataDir, ANTHROPIC_API_KEY: '' },
-    stdio: 'ignore',
+    stdio: ['ignore', 'pipe', 'pipe'],
   });
-  for (let i = 0; i < 50; i++) {
+  child.stdout.on('data', (d) => (output += d));
+  child.stderr.on('data', (d) => (output += d));
+  for (let i = 0; i < 150; i++) {
     try {
       if ((await fetch(`${base}/api/state`)).ok) return;
     } catch {
       // not up yet
     }
+    if (child.exitCode !== null) break;
     await new Promise((r) => setTimeout(r, 100));
   }
-  throw new Error('server did not start');
+  throw new Error(`server did not start:\n${output}`);
 });
 after(() => {
   child.kill();
@@ -100,8 +117,8 @@ test('manual moves, stars and notes are saved', async () => {
 });
 
 test('settings are validated and the API key is never sent back', async () => {
-  const saved = await (await post('/api/settings', { seenAfterHours: 9999, model: 'not-a-model', anthropicApiKey: 'sk-ant-api03-abcdefghijklmnop' })).json();
-  assert.equal(saved.seenAfterHours, 240);
+  const saved = await (await post('/api/settings', { seenAfterDays: 9999, model: 'not-a-model', anthropicApiKey: 'sk-ant-api03-abcdefghijklmnop' })).json();
+  assert.equal(saved.seenAfterDays, 30);
   assert.equal(saved.model, 'claude-opus-5');
   assert.equal(saved.anthropicApiKey, undefined);
   assert.match(saved.anthropicKeyHint, /^sk-ant-api…mnop$/);

@@ -4,7 +4,8 @@ import { Icon } from './icons.js';
 import { Avatar, Badge, TierBadge, Meter, LogCallMenu, MoreMenu, CallButtons, Spinner } from './components.js';
 
 const TIER_INTRO = {
-  first: 'Read your last message and went quiet, asked for a call back, or tried calling you. Most promising first.',
+  first: (days) =>
+    `Read your last message ${plural(days, 'day')} ago or more and never replied, asked for a call back, or tried calling you. Most promising first.`,
   next: 'You had a good conversation or they seem interested — and you haven’t called yet.',
   later: 'Delivered but unread, lukewarm, gone quiet for weeks, or too soon to chase.',
   skip: 'Said no, wrong number, friends & family, spam or automated messages.',
@@ -298,7 +299,7 @@ export function Dashboard({ server, data, ui, setUi, actions, theme }) {
       <div class="list-head">
         <div>
           <h2>${query ? 'Search results' : TIER_META[ui.tier].label}</h2>
-          <p>${query ? plural(visible.length, 'match', 'matches') : TIER_INTRO[ui.tier]}</p>
+          <p>${query ? plural(visible.length, 'match', 'matches') : ui.tier === 'first' ? TIER_INTRO.first(server.settings.seenAfterDays) : TIER_INTRO[ui.tier]}</p>
         </div>
       </div>
 

@@ -13,9 +13,9 @@ Link WhatsApp by scanning a QR code. Call Desk reads your recent chats, includin
 
 | List | Who lands here |
 |---|---|
-| 🟠 **Call first** | Read your last message and didn't reply (*left on seen*). Also anyone who asked you to call back when that time has come, and anyone who tried calling you. |
+| 🟠 **Call first** | Read your last message 3 or more days ago and didn't reply (*left on seen*). Also anyone who asked you to call back when that time has come, and anyone who tried calling you. |
 | 🟢 **Call next** | You had a good chat, or they seem interested, and you haven't called yet. Also people who wrote last and are waiting on you. |
-| 🔵 **Maybe later** | Your message was delivered but not read yet, or they only just read it. Also lukewarm chats, and chats that have been quiet for more than 45 days. |
+| 🔵 **Maybe later** | Your message was delivered but not read yet. Also lukewarm chats where it's been less than 3 days since they read your message, and chats that have been quiet for more than 45 days. |
 | ⚪ **Don't call** | Said no, or it's a wrong number. Also friends and family, spam, and automated messages. |
 | 🟤 **Called** | You logged a call, or called on WhatsApp, after their last message. |
 | 🟡 **Snoozed** | Call-backs and snoozes. They come back to the top when the time comes. |
@@ -55,7 +55,7 @@ After that, just run `npm start` whenever you want your list. You stay logged in
 
 **Left on seen.** WhatsApp shows ✓ for sent, grey ✓✓ for delivered and blue ✓✓ for read. Call Desk counts someone as *left on seen* when all of these are true:
 - your last message has blue ticks
-- it's at least 4 hours old (you can change this in Settings)
+- they read it at least 3 days ago and still haven't replied (you can change this to anything from 1 to 7 days in Settings)
 - it actually expected an answer, like a question, a price, an offer or a follow-up
 
 A sign-off like "thanks!" or "you're welcome ☕" doesn't count. People who turned read receipts off never show blue ticks, so they appear as *Delivered, not read*.
@@ -86,7 +86,7 @@ Without an API key, Call Desk still works. It sorts chats with a quick keyword r
 | Model | Claude Opus 5 | Opus 5 is the most thorough. Sonnet 5 and Haiku 4.5 are cheaper. |
 | Analyze automatically | On | Claude reads new or changed chats right after each sync. |
 | What you do | Brulé description | Tells Claude what counts as "interested". Edit this. |
-| "Left on seen" after | 4 hours | How long after they read your message before it counts. |
+| "Left on seen" after | 3 days | How long they can sit on your message (read, no reply) before they go to Call first. |
 | Gone cold after | 45 days | Older chats drop to Maybe later. |
 | Friends & family / groups | Off | Personal chats and groups stay off the call list. |
 | Chats / messages / days | 150 / 40 / 120 | How much of WhatsApp to read on each sync. |

@@ -1,4 +1,4 @@
-import { DAY, HOUR } from './config.js';
+import { DAY } from './config.js';
 
 // WhatsApp tick states (whatsapp-web.js MessageAck)
 export const ACK = { ERROR: -1, PENDING: 0, SENT: 1, DELIVERED: 2, READ: 3, PLAYED: 4 };
@@ -35,7 +35,8 @@ export function computeSignals(chat, crm = {}, settings, now = Date.now()) {
   const sinceLast = last ? now - last.ts : Infinity;
   const lastFromMe = Boolean(last?.fromMe);
   const ack = lastFromMe ? (last.ack ?? null) : null;
-  const waitedLongEnough = sinceLast >= settings.seenAfterHours * HOUR;
+  // "Left on seen" only after they have sat on your message for a few days (Settings, default 3).
+  const waitedLongEnough = sinceLast >= settings.seenAfterDays * DAY;
 
   const deskCalls = [...(crm.calls ?? [])].sort((a, b) => a.at - b.at);
   const waCalls = [...(chat.callLogs ?? [])].sort((a, b) => a.ts - b.ts);
@@ -62,7 +63,7 @@ export function computeSignals(chat, crm = {}, settings, now = Date.now()) {
     readNoReply: lastFromMe && ack !== null && ack >= ACK.READ && waitedLongEnough,
     readRecently: lastFromMe && ack !== null && ack >= ACK.READ && !waitedLongEnough,
     // Grey double tick: delivered but not opened — or they have read receipts turned off.
-    deliveredNoReply: lastFromMe && ack === ACK.DELIVERED && waitedLongEnough,
+    deliveredNoReply: lastFromMe && ack === ACK.DELIVERED && sinceLast >= DAY,
     notDelivered: lastFromMe && ack !== null && ack <= ACK.SENT && sinceLast >= DAY,
     awaitingReply: Boolean(last) && !lastFromMe,
     unreadCount: chat.unreadCount ?? 0,

@@ -294,7 +294,7 @@ app.post('/api/settings', (req, res) => {
   for (const key of ['autoAnalyze', 'includeGroups', 'includePersonal']) {
     if (typeof body[key] === 'boolean') s[key] = body[key];
   }
-  const ranges = { seenAfterHours: [0, 240], staleAfterDays: [1, 365], maxChats: [10, 1000], messagesPerChat: [10, 200], lookbackDays: [7, 730] };
+  const ranges = { seenAfterDays: [1, 30], staleAfterDays: [1, 365], maxChats: [10, 1000], messagesPerChat: [10, 200], lookbackDays: [7, 730] };
   for (const [key, [min, max]] of Object.entries(ranges)) {
     const n = Math.round(Number(body[key]));
     if (body[key] !== undefined && Number.isFinite(n)) s[key] = Math.min(max, Math.max(min, n));
