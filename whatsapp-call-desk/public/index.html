@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brulé Call Desk</title>
+  <meta name="description" content="Your WhatsApp chats, read by Claude and turned into a call list." />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script>
+    // Apply the saved theme before first paint.
+    try {
+      const t = localStorage.getItem('calldesk-theme');
+      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+    } catch {}
+  </script>
+  <script type="importmap">
+    {
+      "imports": {
+        "preact": "/vendor/preact/dist/preact.module.js",
+        "preact/hooks": "/vendor/preact/hooks/dist/hooks.module.js",
+        "htm": "/vendor/htm/dist/htm.module.js",
+        "htm/preact": "/vendor/htm/preact/index.module.js"
+      }
+    }
+  </script>
+  <script type="module" src="/app/main.js"></script>
+</head>
+<body>
+  <div id="app"><div class="splash"><span class="brand__mark">Brulé</span></div></div>
+  <noscript>Call Desk needs JavaScript turned on.</noscript>
+</body>
+</html>

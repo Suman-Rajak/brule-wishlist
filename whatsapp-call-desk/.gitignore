@@ -1,0 +1,4 @@
+node_modules/
+# Your WhatsApp session, synced chats, call log, notes and saved API key
+data/
+.env
