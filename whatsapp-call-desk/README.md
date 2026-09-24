@@ -91,8 +91,18 @@ Without an API key, Call Desk still works. It sorts chats with a quick keyword r
 
 ## Troubleshooting
 
-- **The QR code never appears, or you see "Couldn't open WhatsApp Web".** Check your internet connection and click **Try again**. If it keeps failing, update the WhatsApp library with `npm install whatsapp-web.js@latest`, because WhatsApp changes its web app from time to time.
-- **"Chrome could not be found".** Run `npx puppeteer browsers install chrome`, or set `CHROME_PATH` in `.env` to your own Chrome.
+- **The QR code never appears, or you see "Couldn't open WhatsApp Web".** Check your internet connection and click **Try again**.
+- **You see "Cannot read properties of null" or another odd error before the QR code.** WhatsApp has probably changed its website. Update the WhatsApp library to its newest version from GitHub, then start again:
+  ```bash
+  npm install https://github.com/wwebjs/whatsapp-web.js/archive/refs/heads/main.tar.gz
+  ```
+- **"Failed to launch the browser process" or "Chrome could not be found".** Call Desk's own copy of Chrome can't start on this computer, so point it at a browser you already have. In the `whatsapp-call-desk` folder, create a file called `.env` containing one of these lines, then start again:
+  ```
+  CHROME_PATH='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+  CHROME_PATH='/Applications/Brave Browser.app/Contents/MacOS/Brave Browser'
+  CHROME_PATH='C:\Program Files\Google\Chrome\Application\chrome.exe'
+  ```
+  (The first two are for a Mac, the last is for Windows.) Call Desk runs that browser hidden, with its own separate profile, so your normal windows and logins aren't touched.
 - **Logged out.** If you removed the linked device on your phone, click the connection pill at the top and scan again.
 - **Port 3000 is busy.** Put `PORT=3001` in `.env`.
 - **A number says "hidden by WhatsApp".** Some contacts use WhatsApp's privacy IDs, so their number isn't shared with linked devices. Use the WhatsApp button to reach them.

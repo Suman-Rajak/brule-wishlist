@@ -52,6 +52,9 @@ function friendlyStartError(err) {
   if (/Could not find (Chrome|expected browser)|Browser was not found|executablePath/i.test(msg)) {
     return 'Chrome could not be found. Run `npx puppeteer browsers install chrome` in this folder, or set CHROME_PATH in .env to your Chrome.';
   }
+  if (/Failed to launch the browser process/i.test(msg)) {
+    return 'The Chrome that Call Desk downloaded couldn’t start on this computer. Use a browser you already have instead: add CHROME_PATH to the .env file (see Troubleshooting in the README), then restart Call Desk.';
+  }
   if (/ERR_NAME_NOT_RESOLVED|ERR_INTERNET_DISCONNECTED|ERR_CONNECTION|ERR_TUNNEL|net::/i.test(msg)) {
     return 'Couldn’t open WhatsApp Web — check your internet connection and try again.';
   }
